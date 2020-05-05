@@ -25,17 +25,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
 
-//    auth.inMemoryAuthentication().passwordEncoder(getPasswordEncoder()).withUser("mathewo")
-//    .password(getPasswordEncoder().encode("asdfasdf")).roles("USER");
-//
-//    super.configure(auth);
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/admin/**").hasRole("ADMIN").anyRequest()
-        .hasRole("USER").and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/dashboard", true).and()
-        .logout().logoutUrl("/logout").permitAll();
+    http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/register").permitAll().antMatchers("/admin/**")
+        .hasRole("ADMIN").anyRequest().hasRole("USER").and().formLogin().loginPage("/login").permitAll()
+        .defaultSuccessUrl("/dashboard", true).and().logout().logoutUrl("/logout").permitAll();
 
     // super.configure(http);
   }
